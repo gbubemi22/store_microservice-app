@@ -12,6 +12,15 @@ const ProductRepository = {
 
     return product;
   },
+  getOneProduct: async(id) => {
+    const product = await DB.products.findByPk(id);
+
+    return product;
+  },
+
+  getAllProducts: async() => {
+    return await DB.products.findAll();
+  }
 };
 
 

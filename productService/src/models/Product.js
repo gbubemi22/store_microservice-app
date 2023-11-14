@@ -3,7 +3,7 @@ export default function (sequelize, DataTypes) {
     "products",
     {
       userId: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(225),
         allowNull: false,
       },
       product_name: {

@@ -4,7 +4,6 @@ dotenv.config();
 import express from "express";
 const app = express();
 
-
 //pcakeges
 import cors from "cors";
 import morgan from "morgan";
@@ -13,16 +12,16 @@ import bodyParser from "body-parser";
 import rateLimiter from "express-rate-limit";
 import helmet from "helmet";
 
-
 //import DB
 import connectDB from "../userService/src/DB/connect.js";
 
 //import route
-import AuthRouter from "../userService/src/router/authRouter.js"
-
+import AuthRouter from "../userService/src/router/authRouter.js";
+import ProductRouter from "../userService/src/router/productRouter.js";
 
 app.use(cors());
-app.use(morgan("dev"));app.use(cors());
+app.use(morgan("dev"));
+app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser(process.env.JWT_COOKIE));
@@ -45,16 +44,13 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to User service" });
 });
 
-
 //use routes
-app.use(AuthRouter)
-
+app.use(AuthRouter);
+app.use(ProductRouter);
 
 //ErrorHandlerMiddleware
 import notFoundMiddleware from "../userService/src/middleware/not-found.js";
 import errorHandlerMiddleware from "../userService/src/middleware/error-handler.js";
-
-
 
 app.set("trust proxy", 1);
 app.use(
@@ -64,7 +60,6 @@ app.use(
   })
 );
 app.use(helmet());
-
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
